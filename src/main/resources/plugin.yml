@@ -1,0 +1,37 @@
+name: YiffBukkitLite
+main: de.doridian.yiffbukkit.YiffBukkitLite
+author: Doridian
+version: 1.0.0
+commands:
+    "list":
+        description: Outputs a list with player names rather than display names
+        usage: /<command>
+    "me":
+        description: Well, /me
+        usage: /<command> <text here>
+    "summon":
+        description: Asks to teleport someone to you
+        permission: yiffbukkit.teleport.summon
+        usage: /<command> <player>
+    "tp":
+        description: Asks to teleport to someone
+        permission: yiffbukkit.teleport.teleport
+        usage: /<command> <player>
+    "home":
+        description: Teleports to your home
+        permission: yiffbukkit.teleport.home
+        usage: /<command>
+    "sethome":
+        description: Sets your home
+        permission: yiffbukkit.teleport.home
+        usage: /<command>
+    "setnick":
+        description: (Un)sets nick of other player
+        permission: yiffbukkit.admin.setnick
+        usage: /<command> <player> [nickname]
+    "yes":
+        description: Accepts the last request (by player)
+        usage: /<command> [player]
+    "no":
+        description: Declines the last request (by player)
+        usage: /<command> [player]
