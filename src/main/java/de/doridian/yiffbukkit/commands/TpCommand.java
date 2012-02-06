@@ -18,8 +18,13 @@ public class TpCommand extends BaseCommand {
 	@Override
 	public boolean onCommandPlayer(Player player, Command command, String s, String[] strings) throws Exception {
 		Player other = getPlayerSingle(strings[0]);
-		requestTeleport(player, other, player, other, ChatColor.GRAY + "%2$s " + ChatColor.WHITE + " wants to teleport to you");
-		sendResponse(player, "Requested teleporting to " + ChatColor.GRAY + other.getDisplayName());
+		if(player.hasPermission(command.getPermission() + ".force")) {
+			player.teleport(other);
+			sendResponse(player, "Teleported to " + ChatColor.GRAY + other.getDisplayName());
+		} else {
+			requestTeleport(player, other, player, other, ChatColor.GRAY + "%2$s " + ChatColor.WHITE + " wants to teleport to you");
+			sendResponse(player, "Requested teleporting to " + ChatColor.GRAY + other.getDisplayName());
+		}
 		return true;
 	}
 	
