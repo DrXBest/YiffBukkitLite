@@ -13,10 +13,10 @@ public class SetNickCommand extends BaseCommand {
 		Player ply = getPlayerSingle(strings[0]);
 		if(strings.length == 2) {
 			plugin.nicknames.setNickname(ply, strings[1]);
-			commandSender.sendMessage("Set nickname!");
+			sendResponse(commandSender, "Set nickname!");
 		} else {
 			plugin.nicknames.removeNickname(ply);
-			commandSender.sendMessage("Removed nickname!");
+			sendResponse(commandSender, "Removed nickname!");
 		}
 		return true;
 	}

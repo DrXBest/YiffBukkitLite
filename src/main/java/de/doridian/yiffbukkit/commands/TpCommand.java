@@ -1,6 +1,8 @@
 package de.doridian.yiffbukkit.commands;
 
-import de.doridian.yiffbukkit.util.Request;
+import de.doridian.yiffbukkit.request.Request;
+import de.doridian.yiffbukkit.request.RequestRunnable;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,7 +18,8 @@ public class TpCommand extends BaseCommand {
 	@Override
 	public boolean onCommandPlayer(Player player, Command command, String s, String[] strings) throws Exception {
 		Player other = getPlayerSingle(strings[0]);
-		requestTeleport(player, other, player, other, "%2$s wants to teleport to you");
+		requestTeleport(player, other, player, other, ChatColor.GRAY + "%2$s " + ChatColor.WHITE + " wants to teleport to you");
+		sendResponse(player, "Requested teleporting to " + ChatColor.GRAY + other.getDisplayName());
 		return true;
 	}
 	
@@ -25,13 +28,17 @@ public class TpCommand extends BaseCommand {
 	}
 	
 	protected void requestTeleport(final Player byPlayer, final Player forPlayer, final Player toTeleport, final Player target, final String msg) {
-		Request request = new Request(forPlayer, byPlayer, new Runnable() {
+		new Request(forPlayer, byPlayer, new RequestRunnable() {
 			@Override
-			public void run() {
+			public void accept() {
 				toTeleport.teleport(target);
-				byPlayer.sendMessage("Your teleportation request was accepted!");
+				sendResponse(byPlayer, "Your teleportation request was accepted!", ChatColor.DARK_GREEN);
 			}
-		});
-		request.add(msg);
+
+			@Override
+			public void decline() {
+				sendResponse(byPlayer, "Your teleportation request was declined!", ChatColor.DARK_RED);
+			}
+		}).add(msg);
 	}
 }

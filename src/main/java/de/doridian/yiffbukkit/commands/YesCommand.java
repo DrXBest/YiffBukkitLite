@@ -1,6 +1,7 @@
 package de.doridian.yiffbukkit.commands;
 
-import de.doridian.yiffbukkit.util.Request;
+import de.doridian.yiffbukkit.request.Request;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -16,8 +17,8 @@ public class YesCommand extends BaseCommand {
 		if(req == null) {
 			throw new Exception("Sorry, no pending request found!");
 		} else {
-			player.sendMessage("Request accepted!");
-			req.run();
+			sendResponse(player, "Request accepted!", ChatColor.DARK_GREEN);
+			req.accept();
 		}
 		return true;
 	}

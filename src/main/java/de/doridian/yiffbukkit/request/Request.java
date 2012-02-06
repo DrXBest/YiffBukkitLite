@@ -1,10 +1,10 @@
-package de.doridian.yiffbukkit.util;
+package de.doridian.yiffbukkit.request;
 
 import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public class Request implements Runnable {
+public class Request implements RequestRunnable {
 	protected static final HashMap<Player, Stack<Request>> requests = new HashMap<Player, Stack<Request>>();
 	
 	public static Request getRequest(Player forPlayer) {
@@ -28,6 +28,7 @@ public class Request implements Runnable {
 	}
 	
 	public static void timeoutCheck(Player forPlayer) {
+		@SuppressWarnings("unchecked")
 		Stack<Request> reqs = (Stack<Request>)requests.get(forPlayer).clone();
 		for(Request req : reqs) {
 			if(!req.isInTime()) {
@@ -46,13 +47,12 @@ public class Request implements Runnable {
 		requests.remove(forPlayer);
 	}
 
-
 	private final Player forPlayer;
 	private final Player byPlayer;
-	private final Runnable execute;
+	private final RequestRunnable execute;
 	private long timeout;
 	
-	public Request(Player forPlayer, Player byPlayer, Runnable run) {
+	public Request(Player forPlayer, Player byPlayer, RequestRunnable run) {
 		this.byPlayer = byPlayer;
 		this.forPlayer = forPlayer;
 		this.execute = run;
@@ -60,14 +60,22 @@ public class Request implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public void accept() {
 		try {
-			execute.run();
+			execute.accept();
 		} catch(Exception e) { }
 		remove();
 	}
 
-	public void remove() {
+	@Override
+	public void decline() {
+		try {
+			execute.decline();
+		} catch(Exception e) { }
+		remove();
+	}
+
+	private void remove() {
 		requests.get(forPlayer).remove(this);
 	}
 
@@ -85,7 +93,7 @@ public class Request implements Runnable {
 		forPlayer.sendMessage("Use /yes to accept or /no to decline");
 	}
 
-	public boolean isInTime() {
+	private boolean isInTime() {
 		return System.currentTimeMillis() <= timeout;
 	}
 }

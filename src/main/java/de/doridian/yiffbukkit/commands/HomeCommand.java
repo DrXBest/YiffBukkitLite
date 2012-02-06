@@ -13,6 +13,7 @@ public class HomeCommand extends BaseCommand {
 			throw new Exception("Sorry, you don't have a home point set!");
 		}
 		player.teleport(location);
+		sendResponse(player, "Teleported home");
 		return true;
 	}
 }

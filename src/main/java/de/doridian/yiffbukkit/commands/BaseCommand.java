@@ -1,6 +1,8 @@
 package de.doridian.yiffbukkit.commands;
 
 import de.doridian.yiffbukkit.YiffBukkitLite;
+import de.doridian.yiffbukkit.util.Utils;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +26,7 @@ public abstract class BaseCommand implements CommandExecutor {
 		try {
 			return onCommandAll(commandSender, command, s, strings);
 		} catch(Exception e) {
-			commandSender.sendMessage("Error: " + e.getMessage());
+			sendResponse(commandSender, "Error: " + e.getMessage(), ChatColor.DARK_RED);
 			return false;
 		}
 	}
@@ -38,28 +40,20 @@ public abstract class BaseCommand implements CommandExecutor {
 	}
 	
 	public boolean onCommandConsole(CommandSender commandSender, Command command, String s, String[] strings) throws Exception {
-		commandSender.sendMessage("Sorry, this command can not be used from the console!");
+		sendResponse(commandSender, "Sorry, this command can not be used from the console!", ChatColor.DARK_RED);
 		return true;
 	}
 
 	public boolean onCommandPlayer(Player player, Command command, String s, String[] strings) throws Exception {
-		player.sendMessage("Sorry, this command can not be used by a player!");
+		sendResponse(player, "Sorry, this command can not be used by a player!", ChatColor.DARK_RED);
 		return true;
 	}
 
 	public static void registerCommands() {
-		registerCommand(ListCommand.class);
-		registerCommand(SetNickCommand.class);
-		registerCommand(MeCommand.class);
-
-		registerCommand(YesCommand.class);
-		registerCommand(NoCommand.class);
-		
-		registerCommand(HomeCommand.class);
-		registerCommand(SetHomeCommand.class);
-
-		registerCommand(TpCommand.class);
-		registerCommand(SummonCommand.class);
+		List<Class<? extends BaseCommand>> commands = Utils.getSubClasses(BaseCommand.class);
+		for(Class<? extends BaseCommand> command : commands) {
+			registerCommand(command);
+		}
 	}
 
 	private static void registerCommand(Class<? extends BaseCommand> commandClass) {
@@ -79,5 +73,13 @@ public abstract class BaseCommand implements CommandExecutor {
 			throw new Exception("Sorry, multiple players found!");
 		}
 		return ret.get(0);
+	}
+
+	protected void sendResponse(CommandSender cmd, String msg) {
+		sendResponse(cmd, msg, ChatColor.DARK_PURPLE);
+	}
+
+	protected void sendResponse(CommandSender cmd, String msg, ChatColor color) {
+		cmd.sendMessage(color + "[YBL] " + ChatColor.WHITE + msg);
 	}
 }

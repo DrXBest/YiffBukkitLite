@@ -1,5 +1,6 @@
 package de.doridian.yiffbukkit.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,7 +16,8 @@ public class SummonCommand extends TpCommand {
 	@Override
 	public boolean onCommandPlayer(Player player, Command command, String s, String[] strings) throws Exception {
 		Player other = getPlayerSingle(strings[0]);
-		requestTeleport(player, other, other, player, "%2$s wants to summon you");
+		requestTeleport(player, other, other, player, ChatColor.GRAY + "%2$s " + ChatColor.WHITE + " wants to summon you");
+		sendResponse(player, "Requested summoning " + ChatColor.GRAY + other.getDisplayName());
 		return true;
 	}
 }

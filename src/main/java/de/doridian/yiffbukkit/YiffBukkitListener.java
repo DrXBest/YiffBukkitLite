@@ -1,6 +1,6 @@
 package de.doridian.yiffbukkit;
 
-import de.doridian.yiffbukkit.util.Request;
+import de.doridian.yiffbukkit.request.Request;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

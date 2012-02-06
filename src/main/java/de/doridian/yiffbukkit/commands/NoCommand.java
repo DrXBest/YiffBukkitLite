@@ -1,6 +1,6 @@
 package de.doridian.yiffbukkit.commands;
 
-import de.doridian.yiffbukkit.util.Request;
+import de.doridian.yiffbukkit.request.Request;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -16,8 +16,8 @@ public class NoCommand extends BaseCommand {
 		if(req == null) {
 			throw new Exception("Sorry, no pending request found!");
 		} else {
-			player.sendMessage("Request declined!");
-			req.remove();
+			sendResponse(player, "Request declined!");
+			req.decline();
 		}
 		return true;
 	}

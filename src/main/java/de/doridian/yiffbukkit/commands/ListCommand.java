@@ -1,6 +1,7 @@
 package de.doridian.yiffbukkit.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,15 +31,15 @@ public class ListCommand extends BaseCommand {
 				String name = ply.getName();
 				String dispName = ply.getDisplayName();
 				if(name.equals(dispName)) {
-					str += ", " + name;
+					str += ", " + ChatColor.GRAY + dispName + ChatColor.WHITE;
 				} else {
-					str += ", " + dispName + "[" + name + "]";
+					str += ", " + ChatColor.GRAY + dispName + ChatColor.WHITE + "[" + name + "]";
 				}
 			}
 			str = str.substring(2).trim();
 		}
 		str = "Connected players: " + str;
-		player.sendMessage(str);
+		sendResponse(player, str);
 		return true;
 	}
 }
