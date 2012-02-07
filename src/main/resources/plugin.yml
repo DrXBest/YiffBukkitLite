@@ -3,9 +3,6 @@ main: de.doridian.yiffbukkit.YiffBukkitLite
 author: Doridian
 version: 1.0.0
 commands:
-    "list":
-        description: Outputs a list with player names rather than display names
-        usage: /<command>
     "me":
         description: Well, /me
         usage: /<command> <text here>
