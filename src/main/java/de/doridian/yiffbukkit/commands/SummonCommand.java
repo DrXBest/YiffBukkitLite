@@ -20,7 +20,7 @@ public class SummonCommand extends TpCommand {
 			other.teleport(player);
 			sendResponse(player, "Summoned " + ChatColor.GRAY + other.getDisplayName());
 		} else {
-			requestTeleport(player, other, other, player, ChatColor.GRAY + "%2$s " + ChatColor.WHITE + " wants to summon you");
+			requestTeleport(player, other, other, player, ChatColor.GRAY + "%2$s" + ChatColor.WHITE + " wants to summon you");
 			sendResponse(player, "Requested summoning " + ChatColor.GRAY + other.getDisplayName());
 		}
 		return true;

@@ -22,7 +22,7 @@ public class TpCommand extends BaseCommand {
 			player.teleport(other);
 			sendResponse(player, "Teleported to " + ChatColor.GRAY + other.getDisplayName());
 		} else {
-			requestTeleport(player, other, player, other, ChatColor.GRAY + "%2$s " + ChatColor.WHITE + " wants to teleport to you");
+			requestTeleport(player, other, player, other, ChatColor.GRAY + "%2$s" + ChatColor.WHITE + " wants to teleport to you");
 			sendResponse(player, "Requested teleporting to " + ChatColor.GRAY + other.getDisplayName());
 		}
 		return true;
